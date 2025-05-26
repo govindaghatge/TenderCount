@@ -1,0 +1,29 @@
+package Tender;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class TenderSectors {
+
+	public static void main(String[] args)
+	{
+	    WebDriver driver = new ChromeDriver();
+	    driver.manage().window().maximize();
+	    driver.get("https://staging-2.growthgrids.com/tendergrid");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        
+    //    Thread.sleep(2000);
+	    WebElement Ind_Ten = driver.findElement(By.xpath("//li//button[text()='India Tenders']"));
+	    
+	    Actions act = new Actions(driver);
+	   
+	    act.moveToElement(Ind_Ten).build().perform();
+	}
+
+}
+
