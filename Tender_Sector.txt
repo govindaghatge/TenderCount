@@ -23,6 +23,8 @@ public class TenderSectors {
 	    Actions act = new Actions(driver);
 	   
 	    act.moveToElement(Ind_Ten).build().perform();
+
+	     System.out.println("Test Completed");
 	}
 
 }
