@@ -9,22 +9,44 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class TenderSectors {
-
-	public static void main(String[] args)
+public static void main(String[] args) throws InterruptedException
 	{
 	    WebDriver driver = new ChromeDriver();
 	    driver.manage().window().maximize();
 	    driver.get("https://staging-2.growthgrids.com/tendergrid");
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-      
-	    WebElement Ind_Ten = driver.findElement(By.xpath("//li//button[text()='India Tenders']"));
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+      Thread.sleep(4000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
+        WebElement Ind_Ten = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li//button[text()='India Tenders']")));
+
+        
+	//    WebElement Ind_Ten = driver.findElement(By.xpath("//li//button[text()='India Tenders']"));
 	    
 	    Actions act = new Actions(driver);
 	   
 	    act.moveToElement(Ind_Ten).build().perform();
-            driver.findElement(By.xpath("(//span[text()='View all'])[1]")).click();
-	    System.out.println("Test Completed");
-	}
+	    
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
+        WebElement element = wait1.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='View all'])[1]")));
 
+        driver.findElement(By.xpath("(//span[text()='View all'])[1]")).click();
+	    
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        
+	    List<WebElement> Sectors_Name = driver.findElements(By.xpath("//div//a[contains(@class,'border rounded-lg')]"));
+	    
+	       System.out.println(Sectors_Name.size());
+	       
+		    for(int i=0; i<Sectors_Name.size(); i++)
+		    {
+		    	System.out.println(Sectors_Name.get(i).getText());
+		    	System.out.println();
+		    }
+		    
+	        //    System.out.println("Test Completed");
+	}
 }
 
