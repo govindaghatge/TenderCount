@@ -1,4 +1,4 @@
-package Tender;
+package TenderCount;
 
 import java.time.Duration;
 import java.util.List;
@@ -13,34 +13,37 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TenderSectors {
-public static void main(String[] args) throws InterruptedException
-	{
-	    WebDriver driver = new ChromeDriver();
-	    driver.manage().window().maximize();
-	    driver.get("https://staging-2.growthgrids.com/tendergrid");
-        //Thread.sleep(4000);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        
-        WebElement Ind_Ten = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li//button[text()='India Tenders']")));
 
-	    Actions act = new Actions(driver);
-	   
-	    act.moveToElement(Ind_Ten).build().perform();
-	            
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='View all'])[1]")));
+	public static void main(String[] args) throws InterruptedException
+          {
+               WebDriver driver = new ChromeDriver();
+	       driver.manage().window().maximize();
+               driver.get("https://staging-2.growthgrids.com/tendergrid");
+              //Thread.sleep(4000);
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));        
+		WebElement Ind_Ten = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li//button[text()='India Tenders']")));
 
-        element.click();
-	    
-       JavascriptExecutor js = (JavascriptExecutor) driver;
-       js.executeScript("window.scrollBy(0,500)");
-        
-	    List<WebElement> SectorsCart = driver.findElements(By.xpath("//div//a[contains(@class,'border rounded-lg')]"));
-	    
-	    for(WebElement x:SectorsCart) {
-	    	String sctr = x.findElement(By.xpath("")).getText();
-	    
-	    	String count = x.findElement(By.xpath("")).getText();
-	    }
-	    
-	}
+	        Actions act = new Actions(driver);
+			   
+	        act.moveToElement(Ind_Ten).build().perform();
+			            
+	        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='View all'])[1]")));
+
+                element.click();
+		           	    
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript("window.scrollBy(0,5000)");
+
+	        List<WebElement> SectorsCart = driver.findElements(By.xpath("//a[contains(@class, 'border rounded-lg')]"));
+			    
+	        for(WebElement x:SectorsCart)
+		  {
+		    	String sctr = x.findElement(By.xpath("//div[contains(@class, 'leading-tight')]")).getText();
+		      	String count = x.findElement(By.xpath("//div[contains(@class, 'text-small')]")).getText();
+		      	System.out.println(sctr);			    
+ 		      	System.out.println(count);
+		  }
+			    
+	   }
+
 }
